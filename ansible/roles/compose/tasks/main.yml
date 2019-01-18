@@ -2,7 +2,7 @@
   file:
     dest: "{{ item.dest_dir }}"
     state: directory
-  with_items: files
+  with_items: '{{files}}'
   tags: [compose]
 
 - name: Files are present
@@ -10,5 +10,5 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest_dir }}/{{ item.dest_file }}"
     mode: "{{ item.mode }}"
-  with_items: files
+  with_items: '{{files}}'
   tags: [compose]

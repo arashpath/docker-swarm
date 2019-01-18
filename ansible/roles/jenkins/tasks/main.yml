@@ -24,7 +24,7 @@
     state: directory
     owner: 1000 # uid=1000, mapping to user 'jenkins' inside the jenkins container
     group: 1000 # gid=1000, mapping to group 'jenkins' inside the jenkins container
-  with_items: jenkins_jobs
+  with_items: '{{jenkins_jobs}}'
   tags: [jenkins]
 
 - name: Build jobs are present
@@ -34,11 +34,11 @@
     owner: 1000 # uid=1000, mapping to user 'jenkins' inside the jenkins container
     group: 1000 # gid=1000, mapping to group 'jenkins' inside the jenkins container
     backup: yes
-  with_items: jenkins_jobs
+  with_items: '{{jenkins_jobs}}'
   tags: [jenkins]
 
 - name: Container is running
-  docker:
+  docker_container:
     name: jenkins
     image: jenkins:1.642.4
     ports: 8080:8080

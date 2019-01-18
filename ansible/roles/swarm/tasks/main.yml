@@ -2,7 +2,7 @@
   file:
     dest: "{{ item }}"
     state: directory
-  with_items: master_directories
+  with_items: '{{ master_directories }}'
   when: swarm_master is defined
   tags: [swarm]
 
@@ -11,7 +11,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: 0755
-  with_items: master_scripts
+  with_items: '{{master_scripts}}'
   when: swarm_master is defined
   tags: [swarm]
 
@@ -37,7 +37,7 @@
   tags: [swarm]
 
 - name: Swarm node is running
-  docker:
+  docker_container:
     name: swarm-node
     image: swarm
     command: join --advertise={{ ip }}:2375 consul://{{ ip }}:8500/swarm
@@ -45,7 +45,7 @@
   tags: [swarm]
 
 - name: Swarm master is running
-  docker:
+  docker_container:
     name: swarm-master
     image: swarm
     ports: 2375:2375

@@ -2,7 +2,7 @@
   file:
     dest: "{{ item }}"
     state: directory
-  with_items: directories
+  with_items: '{{directories}}'
   tags: [consul]
 
 - name: Files are present
@@ -10,7 +10,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
-  with_items: files
+  with_items: '{{files}}'
   tags: [consul]
 
 - name: Watchers are present
@@ -26,7 +26,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
-  with_items: templates
+  with_items: '{{templates}}'
   tags: [consul]
 
 - name: Service is started
@@ -54,7 +54,7 @@
   tags: [consul]
 
 - name: Registrator is running
-  docker:
+  docker_container:
     name: registrator
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock
@@ -64,7 +64,7 @@
   tags: [consul]
 
 - name: Registrator KV is running
-  docker:
+  docker_container:
     name: registrator-kv
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock

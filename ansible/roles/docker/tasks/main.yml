@@ -16,10 +16,9 @@
   apt: name=python-pip state=present
   tags: [docker]
 
-- name: Debian docker-py is present
+- name: Debian docker python module is present
   pip:
-    name: docker-py
-    version: 1.6.0
+    name: docker
     state: present
   tags: [docker]
 

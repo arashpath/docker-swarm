@@ -121,7 +121,7 @@
   template:
     src: "{{ item.src }}"
     dest: "{{ item.ctmplDest }}"
-  with_items: nginx_templates
+  with_items: '{{nginx_templates}}'
   tags: [service]
 
 - name: nginx Consul templates are applied
@@ -130,7 +130,7 @@
       -consul localhost:8500 \
       -template "{{ item.ctmplDest }}:{{ item.dest }}:docker kill -s HUP nginx" \
       -once
-  with_items: nginx_templates
+  with_items: '{{nginx_templates}}'
   tags: [service]
 
 - name: Consul configs are present
